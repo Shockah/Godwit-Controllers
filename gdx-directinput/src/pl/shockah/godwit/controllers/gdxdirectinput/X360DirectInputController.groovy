@@ -1,12 +1,12 @@
 package pl.shockah.godwit.controllers.gdxdirectinput
 
 import com.badlogic.gdx.controllers.Controller
-import com.badlogic.gdx.controllers.ControllerListener
 import com.badlogic.gdx.controllers.PovDirection
 import groovy.transform.CompileStatic
+import pl.shockah.godwit.controllers.ControllerAnalog
 
 @CompileStatic
-class X360DirectInputController extends DirectInputController implements ControllerListener {
+class X360DirectInputController extends DirectInputController {
 	public static final PovDirection BUTTON_DPAD_UP = PovDirection.north;
 	public static final PovDirection BUTTON_DPAD_DOWN = PovDirection.south;
 	public static final PovDirection BUTTON_DPAD_RIGHT = PovDirection.east;
@@ -18,7 +18,19 @@ class X360DirectInputController extends DirectInputController implements Control
 
 	@Override
 	void setupComponents() {
+		for (Button button : Button.values()) {
+			buttonMap[button.code] = new DirectInputControllerButton(this, button.code)
+			buttons << buttonMap[button.code]
+		}
 
+		for (Axis axis : Axis.values()) {
+			axisMap[axis.code] = new DirectInputControllerAxis(this, axis.code)
+		}
+
+		analogs << new ControllerAnalog(axisMap[Axis.LeftX.code], axisMap[Axis.LeftY.code])
+		analogs << new ControllerAnalog(axisMap[Axis.RightX.code], axisMap[Axis.RightY.code])
+
+		axes << new DirectInputControllerAxis(this, Axis.Triggers.code)
 	}
 
 	static enum Button {
