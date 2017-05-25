@@ -1,0 +1,34 @@
+apply plugin: "groovy"
+
+dependencies {
+	compile project(":controllers")
+	compile "org.codehaus.groovy:groovy:2.4.10"
+}
+
+sourceCompatibility = 1.7
+[compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.encoding = "UTF-8"
+
+sourceSets.main {
+	java.srcDirs = []
+	groovy.srcDirs = ["src"]
+	resources.srcDirs = ["resources"]
+}
+
+project.ext.mainClassName = "pl.shockah.godwit.controllers.test.TestStarter"
+
+def testNames = [
+		"AttachedViewport", "Shapes"
+]
+
+testNames.each {
+	testName -> tasks.create("test${testName}", JavaExec) {
+	    dependsOn 'classes'
+
+	    main = project.mainClassName
+	    args testName
+	    classpath = sourceSets.main.runtimeClasspath
+	    standardInput = System.in
+		ignoreExitValue = true
+	    //workingDir = project.assetsDir
+	}
+}
