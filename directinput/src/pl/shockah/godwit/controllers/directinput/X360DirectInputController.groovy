@@ -6,6 +6,9 @@ import pl.shockah.godwit.controllers.ControllerAnalog
 
 @CompileStatic
 class X360DirectInputController extends DirectInputController {
+	final Map<Button, DirectInputControllerButton> buttonMap = new HashMap<>()
+	final Map<Axis, DirectInputControllerAxis> axisMap = new HashMap<>()
+
 	X360DirectInputController(Controller controller) {
 		super(controller)
 	}
@@ -15,16 +18,20 @@ class X360DirectInputController extends DirectInputController {
 		povs << new DirectInputControllerPov(this, 0)
 
 		for (Button button : Button.values()) {
-			buttonMap[button.code] = new DirectInputControllerButton(this, button.code)
-			buttons << buttonMap[button.code]
+			DirectInputControllerButton controllerButton = new DirectInputControllerButton(this, button.code)
+			buttonMap[button] = controllerButton
+			super.buttonMap[button.code] = controllerButton
+			buttons << controllerButton
 		}
 
 		for (Axis axis : Axis.values()) {
-			axisMap[axis.code] = new DirectInputControllerAxis(this, axis.code)
+			DirectInputControllerAxis controllerAxis = new DirectInputControllerAxis(this, axis.code)
+			axisMap[axis] = controllerAxis
+			super.axisMap[axis.code] = controllerAxis
 		}
 
-		analogs << new ControllerAnalog(axisMap[Axis.LeftX.code], axisMap[Axis.LeftY.code])
-		analogs << new ControllerAnalog(axisMap[Axis.RightX.code], axisMap[Axis.RightY.code])
+		analogs << new ControllerAnalog(axisMap[Axis.LeftX], axisMap[Axis.LeftY])
+		analogs << new ControllerAnalog(axisMap[Axis.RightX], axisMap[Axis.RightY])
 
 		axes << new DirectInputControllerAxis(this, Axis.Triggers.code)
 	}
