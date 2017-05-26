@@ -11,8 +11,8 @@ class DirectInputControllerAxis extends ControllerAxis {
 	protected Float minAbsValue = null
 	protected Float maxAbsValue = null
 
-	DirectInputControllerAxis(DirectInputController controller, int axisCode) {
-		super(controller)
+	DirectInputControllerAxis(DirectInputController controller, String name, int axisCode) {
+		super(controller, name)
 		this.controller = controller
 		this.axisCode = axisCode
 	}

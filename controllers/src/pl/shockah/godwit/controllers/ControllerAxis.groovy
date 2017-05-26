@@ -7,8 +7,8 @@ abstract class ControllerAxis extends ControllerComponent {
 	protected ControllerAxisState cachedState
 	protected ControllerAxisState lastState
 
-	ControllerAxis(Controller controller) {
-		super(controller)
+	ControllerAxis(Controller controller, String name) {
+		super(controller, name)
 	}
 
 	@Override

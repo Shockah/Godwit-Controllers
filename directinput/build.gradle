@@ -1,9 +1,8 @@
 apply plugin: "groovy"
 
 dependencies {
-	compileOnly "org.codehaus.groovy:groovy:2.4.10"
 	compile project(":controllers")
-	compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
+	compileOnly "org.codehaus.groovy:groovy:2.4.10"
 }
 
 sourceCompatibility = 1.7

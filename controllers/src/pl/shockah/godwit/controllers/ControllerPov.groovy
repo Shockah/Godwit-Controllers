@@ -7,8 +7,8 @@ abstract class ControllerPov extends ControllerComponent {
 	protected ControllerPovState cachedState
 	protected ControllerPovState lastState
 
-	ControllerPov(Controller controller) {
-		super(controller)
+	ControllerPov(Controller controller, String name) {
+		super(controller, name)
 	}
 
 	@Override

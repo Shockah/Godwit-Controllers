@@ -4,18 +4,18 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 abstract class Controller {
-	final List<ControllerPov> povs = new ArrayList<>()
-	final List<ControllerAnalog> analogs = new ArrayList<>()
-	final List<ControllerAxis> axes = new ArrayList<>()
-	final List<ControllerButton> buttons = new ArrayList<>()
-	final List<ControllerComponent> fakes = new ArrayList<>()
+	final Map<String, ControllerPov> povs = new HashMap<>()
+	final Map<String, ControllerAnalog> analogs = new HashMap<>()
+	final Map<String, ControllerAxis> axes = new HashMap<>()
+	final Map<String, ControllerButton> buttons = new HashMap<>()
+	final Map<String, ControllerComponent> fakes = new HashMap<>()
 
 	List<ControllerComponent> getRealComponents() {
-		return (povs as List<ControllerComponent>) + (analogs as List<ControllerComponent>) + (axes as List<ControllerComponent>) + (buttons as List<ControllerComponent>)
+		return (povs.values() as List<ControllerComponent>) + (analogs.values() as List<ControllerComponent>) + (axes.values() as List<ControllerComponent>) + (buttons.values() as List<ControllerComponent>)
 	}
 
 	List<ControllerComponent> getComponents() {
-		return realComponents + fakes
+		return realComponents + fakes.values()
 	}
 
 	void onUpdate() {
@@ -31,4 +31,26 @@ abstract class Controller {
 	}
 
 	abstract boolean isConnected()
+
+	abstract Float getBatteryStatus()
+
+	protected void registerPov(ControllerPov pov) {
+		povs[pov.name] = pov
+	}
+
+	protected void registerAnalog(ControllerAnalog analog) {
+		analogs[analog.name] = analog
+	}
+
+	protected void registerAxis(ControllerAxis axis) {
+		axes[axis.name] = axis
+	}
+
+	protected void registerButton(ControllerButton button) {
+		buttons[button.name] = button
+	}
+
+	protected void registerFake(ControllerComponent component) {
+		fakes[component.name] = component
+	}
 }

@@ -11,8 +11,8 @@ class DirectInputControllerButton extends ControllerButton {
 	protected boolean press
 	protected boolean release
 
-	DirectInputControllerButton(DirectInputController controller, int buttonCode) {
-		super(controller)
+	DirectInputControllerButton(DirectInputController controller, String name, int buttonCode) {
+		super(controller, name)
 		this.controller = controller
 		this.buttonCode = buttonCode
 	}

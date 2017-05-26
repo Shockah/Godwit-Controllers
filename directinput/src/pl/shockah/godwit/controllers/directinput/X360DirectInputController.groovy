@@ -15,59 +15,69 @@ class X360DirectInputController extends DirectInputController {
 
 	@Override
 	void setupComponents() {
-		povs << new DirectInputControllerPov(this, 0)
+		registerPov(new DirectInputControllerPov(this, "POV", 0))
 
 		for (Button button : Button.values()) {
-			DirectInputControllerButton controllerButton = new DirectInputControllerButton(this, button.code)
+			DirectInputControllerButton controllerButton = new DirectInputControllerButton(this, button.name, button.code)
 			buttonMap[button] = controllerButton
 			super.buttonMap[button.code] = controllerButton
-			buttons << controllerButton
+			registerButton(controllerButton)
 		}
 
 		for (Axis axis : Axis.values()) {
-			DirectInputControllerAxis controllerAxis = new DirectInputControllerAxis(this, axis.code)
+			DirectInputControllerAxis controllerAxis = new DirectInputControllerAxis(this, axis.name, axis.code)
 			axisMap[axis] = controllerAxis
 			super.axisMap[axis.code] = controllerAxis
 		}
 
-		analogs << new ControllerAnalog(axisMap[Axis.LeftX], axisMap[Axis.LeftY])
-		analogs << new ControllerAnalog(axisMap[Axis.RightX], axisMap[Axis.RightY])
+		registerAnalog(new ControllerAnalog(axisMap[Axis.LeftX], axisMap[Axis.LeftY], "Left Analog"))
+		registerAnalog(new ControllerAnalog(axisMap[Axis.RightX], axisMap[Axis.RightY], "Right Analog"))
 
-		axes << new DirectInputControllerAxis(this, Axis.Triggers.code)
+		registerAxis(new DirectInputControllerAxis(this, Axis.Triggers.name, Axis.Triggers.code))
 	}
 
 	static enum Button {
 		A(0), B(1), X(2), Y(3),
-		LeftShoulder(4), RightShoulder(5),
+		LeftShoulder(4, "Left Button"), RightShoulder(5, "Right Button"),
 		Back(6), Start(7),
-		LeftStick(8), RightStick(9)
+		LeftStick(8, "Left Stick"), RightStick(9, "Right Stick")
 
 		private final int code
+		private final String name
 
-		Button(int code) {
+		Button(int code, String name = null) {
 			this.code = code
 		}
 
 		int getCode() {
 			return code
+		}
+
+		String getName() {
+			return name ? name : name()
 		}
 	}
 
 	static enum Axis {
 		LeftX(1), LeftY(0),
 		RightX(3), RightY(2),
-		Triggers(4, true) // 0f -> -1f is L, 0f -> 1f is R
+		Triggers(4, null, true) // 0f -> -1f is L, 0f -> 1f is R
 
 		private final int code
+		private final String name
 		private final boolean reversed
 
-		Axis(int code, boolean reversed = false) {
+		Axis(int code, String name = null, boolean reversed = false) {
 			this.code = code
 			this.reversed = reversed
 		}
 
 		int getCode() {
 			return code
+		}
+
+		String getName() {
+			return name ? name : name()
 		}
 	}
 }

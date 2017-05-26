@@ -7,8 +7,8 @@ abstract class ControllerButton extends ControllerComponent {
 	protected ControllerButtonState cachedState
 	protected ControllerButtonState lastState
 
-	ControllerButton(Controller controller) {
-		super(controller)
+	ControllerButton(Controller controller, String name) {
+		super(controller, name)
 	}
 
 	@Override

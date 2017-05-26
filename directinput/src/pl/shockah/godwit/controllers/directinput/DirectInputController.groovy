@@ -27,6 +27,11 @@ abstract class DirectInputController extends Controller implements ControllerLis
 	}
 
 	@Override
+	Float getBatteryStatus() {
+		return null
+	}
+
+	@Override
 	void connected(com.badlogic.gdx.controllers.Controller controller) {
 		connected = true
 	}

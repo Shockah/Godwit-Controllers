@@ -11,8 +11,8 @@ class ControllerAnalog extends ControllerComponent {
 	final ControllerAxis x
 	final ControllerAxis y
 
-	ControllerAnalog(ControllerAxis x, ControllerAxis y) {
-		super(x.controller)
+	ControllerAnalog(ControllerAxis x, ControllerAxis y, String name) {
+		super(x.controller, name)
 		this.x = x
 		this.y = y
 		assert x.controller == y.controller

@@ -9,8 +9,8 @@ class DirectInputControllerPov extends ControllerPov {
 	final DirectInputController controller
 	final int povCode
 
-	DirectInputControllerPov(DirectInputController controller, int povCode) {
-		super(controller)
+	DirectInputControllerPov(DirectInputController controller, String name, int povCode) {
+		super(controller, name)
 		this.controller = controller
 		this.povCode = povCode
 	}
