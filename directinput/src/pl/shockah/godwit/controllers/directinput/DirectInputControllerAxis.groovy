@@ -1,4 +1,4 @@
-package pl.shockah.godwit.controllers.gdxdirectinput
+package pl.shockah.godwit.controllers.directinput
 
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.ControllerAxis

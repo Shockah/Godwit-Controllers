@@ -1,23 +1,19 @@
-package pl.shockah.godwit.controllers.gdxdirectinput
+package pl.shockah.godwit.controllers.directinput
 
 import com.badlogic.gdx.controllers.Controller
-import com.badlogic.gdx.controllers.PovDirection
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.ControllerAnalog
 
 @CompileStatic
 class X360DirectInputController extends DirectInputController {
-	public static final PovDirection BUTTON_DPAD_UP = PovDirection.north;
-	public static final PovDirection BUTTON_DPAD_DOWN = PovDirection.south;
-	public static final PovDirection BUTTON_DPAD_RIGHT = PovDirection.east;
-	public static final PovDirection BUTTON_DPAD_LEFT = PovDirection.west;
-
 	X360DirectInputController(Controller controller) {
 		super(controller)
 	}
 
 	@Override
 	void setupComponents() {
+		povs << new DirectInputControllerPov(this, 0)
+
 		for (Button button : Button.values()) {
 			buttonMap[button.code] = new DirectInputControllerButton(this, button.code)
 			buttons << buttonMap[button.code]

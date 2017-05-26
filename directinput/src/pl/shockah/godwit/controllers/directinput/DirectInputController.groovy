@@ -1,4 +1,4 @@
-package pl.shockah.godwit.controllers.gdxdirectinput
+package pl.shockah.godwit.controllers.directinput
 
 import com.badlogic.gdx.controllers.ControllerListener
 import com.badlogic.gdx.controllers.PovDirection
