@@ -1,1 +1,1 @@
-include 'controllers', 'directinput', 'test'
+include 'controllers', 'directinput', 'xinput', 'test'

@@ -1,0 +1,3 @@
+moduleName=Godwit-Controllers XInput extensions
+moduleVersion=1.0
+extensionClasses=pl.shockah.godwit.controllers.xinput.Extensions
