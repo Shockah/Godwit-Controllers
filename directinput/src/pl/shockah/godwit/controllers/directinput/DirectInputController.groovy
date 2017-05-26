@@ -71,7 +71,7 @@ abstract class DirectInputController extends Controller implements ControllerLis
 
 	@Override
 	boolean povMoved(com.badlogic.gdx.controllers.Controller controller, int povCode, PovDirection value) {
-		return true
+		return false
 	}
 
 	@Override
