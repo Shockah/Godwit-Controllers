@@ -1,6 +1,7 @@
 package pl.shockah.godwit.controllers.xinput
 
 import com.ivan.xinput.XInputButtons
+import com.ivan.xinput.enums.XInputAxis
 import com.ivan.xinput.enums.XInputButton
 import groovy.transform.CompileStatic
 
@@ -30,6 +31,17 @@ final class Extensions {
 				return "POV Right"
 			case XInputButton.GUIDE_BUTTON:
 				return "Guide"
+			default:
+				return self.name()
+		}
+	}
+
+	static String getName(XInputAxis self) {
+		switch (self) {
+			case XInputAxis.LEFT_TRIGGER:
+				return "Left Trigger"
+			case XInputAxis.RIGHT_TRIGGER:
+				return "Right Trigger"
 			default:
 				return self.name()
 		}

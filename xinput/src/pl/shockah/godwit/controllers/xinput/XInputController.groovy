@@ -3,12 +3,14 @@ package pl.shockah.godwit.controllers.xinput
 import com.ivan.xinput.XInputBatteryInformation
 import com.ivan.xinput.XInputDevice
 import com.ivan.xinput.XInputDevice14
+import com.ivan.xinput.enums.XInputAxis
 import com.ivan.xinput.enums.XInputBatteryDeviceType
 import com.ivan.xinput.enums.XInputBatteryLevel
 import com.ivan.xinput.enums.XInputButton
 import com.ivan.xinput.listener.XInputDeviceListener
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.Controller
+import pl.shockah.godwit.controllers.ControllerAnalog
 
 @CompileStatic
 class XInputController extends Controller implements XInputDeviceListener {
@@ -19,9 +21,12 @@ class XInputController extends Controller implements XInputDeviceListener {
 	protected final XInputDevice device
 
 	protected Map<XInputButton, XInputControllerButton> buttonMap = new HashMap<>()
+	protected Map<XInputAxis, XInputControllerAxis> axisMap = new HashMap<>()
 
 	XInputController(XInputDevice device) {
 		this.device = device
+
+		registerPov(new XInputControllerPov(this))
 
 		for (XInputButton button : XInputButton.values()) {
 			if (button in POV_BUTTONS)
@@ -30,6 +35,21 @@ class XInputController extends Controller implements XInputDeviceListener {
 			buttonMap[button] = controllerButton
 			registerButton(controllerButton)
 		}
+
+		for (XInputAxis axis in [
+				XInputAxis.LEFT_THUMBSTICK_X, XInputAxis.LEFT_THUMBSTICK_Y,
+				XInputAxis.RIGHT_THUMBSTICK_X, XInputAxis.RIGHT_THUMBSTICK_Y,
+				XInputAxis.LEFT_TRIGGER, XInputAxis.RIGHT_TRIGGER
+		]) {
+			XInputControllerAxis controllerAxis = new XInputControllerAxis(this, axis)
+			axisMap[axis] = controllerAxis
+		}
+
+		registerAnalog(new ControllerAnalog(axisMap[XInputAxis.LEFT_THUMBSTICK_X], axisMap[XInputAxis.LEFT_THUMBSTICK_Y], "Left Analog"))
+		registerAnalog(new ControllerAnalog(axisMap[XInputAxis.RIGHT_THUMBSTICK_X], axisMap[XInputAxis.RIGHT_THUMBSTICK_Y], "Right Analog"))
+
+		registerAxis(axisMap[XInputAxis.LEFT_TRIGGER])
+		registerAxis(axisMap[XInputAxis.RIGHT_TRIGGER])
 	}
 
 	@Override

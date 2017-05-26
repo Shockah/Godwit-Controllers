@@ -33,7 +33,7 @@ class X360DirectInputController extends DirectInputController {
 		registerAnalog(new ControllerAnalog(axisMap[Axis.LeftX], axisMap[Axis.LeftY], "Left Analog"))
 		registerAnalog(new ControllerAnalog(axisMap[Axis.RightX], axisMap[Axis.RightY], "Right Analog"))
 
-		registerAxis(new DirectInputControllerAxis(this, Axis.Triggers.name, Axis.Triggers.code))
+		registerAxis(axisMap[Axis.Triggers])
 	}
 
 	static enum Button {
