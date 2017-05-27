@@ -6,6 +6,7 @@ import com.ivan.xinput.XInputDevice14
 import com.ivan.xinput.enums.XInputAxis
 import com.ivan.xinput.enums.XInputBatteryDeviceType
 import com.ivan.xinput.enums.XInputBatteryLevel
+import com.ivan.xinput.enums.XInputBatteryType
 import com.ivan.xinput.enums.XInputButton
 import com.ivan.xinput.listener.XInputDeviceListener
 import groovy.transform.CompileStatic
@@ -68,8 +69,12 @@ class XInputController extends Controller implements XInputDeviceListener {
 		if (device instanceof XInputDevice14) {
 			XInputDevice14 device14 = device as XInputDevice14
 			XInputBatteryInformation batteryInfo = device14.getBatteryInformation(XInputBatteryDeviceType.GAMEPAD)
-			if (batteryInfo)
-				return 1f * batteryInfo.level.ordinal() / XInputBatteryLevel.values().length
+			if (batteryInfo) {
+				if (batteryInfo.type == XInputBatteryType.WIRED)
+					return null
+				else
+					return 1f * batteryInfo.level.ordinal() / XInputBatteryLevel.values().length
+			}
 		}
 		return null
 	}
