@@ -3,10 +3,23 @@ package pl.shockah.godwit.controllers
 import groovy.transform.CompileStatic
 
 @CompileStatic
-interface ControllerProvider {
-    List<Controller> getControllers()
+abstract class ControllerProvider {
+    boolean enabled = true
+    abstract List<Controller> getControllers()
 
-    void onUpdate()
+    final List<Controller> getConnectedControllers() {
+        return controllers.findAll { it.connected }
+    }
 
-    void postUpdate()
+    void onUpdate() {
+        for (Controller controller : controllers) {
+            controller.onUpdate()
+        }
+    }
+
+    void postUpdate() {
+        for (Controller controller : controllers) {
+            controller.postUpdate()
+        }
+    }
 }

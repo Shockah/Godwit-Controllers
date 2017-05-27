@@ -1,13 +1,15 @@
 package pl.shockah.godwit.controllers.directinput
 
-import com.badlogic.gdx.controllers.ControllerAdapter
+import com.badlogic.gdx.controllers.ControllerListener
 import com.badlogic.gdx.controllers.Controllers
+import com.badlogic.gdx.controllers.PovDirection
+import com.badlogic.gdx.math.Vector3
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.Controller
 import pl.shockah.godwit.controllers.ControllerProvider
 
 @CompileStatic
-class DirectInputControllerProvider extends ControllerAdapter implements ControllerProvider {
+class DirectInputControllerProvider extends ControllerProvider implements ControllerListener {
     protected final Map<com.badlogic.gdx.controllers.Controller, DirectInputController> nativeToAbstractMap = new LinkedHashMap<>()
     protected final Set<DirectInputControllerImplementationProvider> implementationProviders = new LinkedHashSet<>()
 
@@ -58,5 +60,40 @@ class DirectInputControllerProvider extends ControllerAdapter implements Control
             abstractController.postUpdate()
             nativeToAbstractMap.remove(controller)
         }
+    }
+
+    @Override
+    boolean buttonDown(com.badlogic.gdx.controllers.Controller controller, int buttonCode) {
+        return true
+    }
+
+    @Override
+    boolean buttonUp(com.badlogic.gdx.controllers.Controller controller, int buttonCode) {
+        return true
+    }
+
+    @Override
+    boolean axisMoved(com.badlogic.gdx.controllers.Controller controller, int axisCode, float value) {
+        return true
+    }
+
+    @Override
+    boolean povMoved(com.badlogic.gdx.controllers.Controller controller, int povCode, PovDirection value) {
+        return true
+    }
+
+    @Override
+    boolean xSliderMoved(com.badlogic.gdx.controllers.Controller controller, int sliderCode, boolean value) {
+        return true
+    }
+
+    @Override
+    boolean ySliderMoved(com.badlogic.gdx.controllers.Controller controller, int sliderCode, boolean value) {
+        return true
+    }
+
+    @Override
+    boolean accelerometerMoved(com.badlogic.gdx.controllers.Controller controller, int accelerometerCode, Vector3 value) {
+        return true
     }
 }
