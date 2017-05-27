@@ -8,23 +8,23 @@ import pl.shockah.godwit.controllers.ControllerProvider
 
 @CompileStatic
 class XInputControllerProvider extends ControllerProvider {
-    protected final Map<XInputDevice, XInputController> nativeToAbstractMap = new LinkedHashMap<>()
+	protected final Map<XInputDevice, XInputController> nativeToAbstractMap = new LinkedHashMap<>()
 
-    XInputControllerProvider() {
-        if (XInputDevice14.available)
-            setupDevices(XInputDevice14.allDevices)
-        else
-            setupDevices(XInputDevice.allDevices)
-    }
+	XInputControllerProvider() {
+		if (XInputDevice14.available)
+			setupDevices(XInputDevice14.allDevices)
+		else
+			setupDevices(XInputDevice.allDevices)
+	}
 
-    private void setupDevices(XInputDevice[] devices) {
-        for (XInputDevice device : devices) {
-            nativeToAbstractMap[device] = new XInputController(device)
-        }
-    }
+	private void setupDevices(XInputDevice[] devices) {
+		for (XInputDevice device : devices) {
+			nativeToAbstractMap[device] = new XInputController(device)
+		}
+	}
 
-    @Override
-    List<Controller> getControllers() {
-        return nativeToAbstractMap.values() as List<Controller>
-    }
+	@Override
+	List<Controller> getControllers() {
+		return nativeToAbstractMap.values() as List<Controller>
+	}
 }

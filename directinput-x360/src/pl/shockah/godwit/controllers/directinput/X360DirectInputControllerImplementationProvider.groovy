@@ -5,11 +5,11 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 class X360DirectInputControllerImplementationProvider implements DirectInputControllerImplementationProvider {
-    @Override
-    DirectInputController provide(Controller controller) {
-        if (controller.name.toLowerCase().split(" +").contains("xbox"))
-            return new X360DirectInputController(controller)
-        else
-            return null
-    }
+	@Override
+	DirectInputController provide(Controller controller) {
+		if (controller.name.toLowerCase().split(" +").contains("xbox"))
+			return new X360DirectInputController(controller)
+		else
+			return null
+	}
 }

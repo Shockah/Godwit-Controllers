@@ -5,5 +5,5 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 interface DirectInputControllerImplementationProvider {
-    DirectInputController provide(Controller controller)
+	DirectInputController provide(Controller controller)
 }
