@@ -50,7 +50,11 @@ abstract class Controller {
 		buttons[button.name] = button
 	}
 
-	protected void registerFake(ControllerComponent component) {
+	void registerFake(ControllerComponent component) {
 		fakes[component.name] = component
+	}
+
+	void unregisterFake(ControllerComponent component) {
+		fakes.remove(component.name)
 	}
 }

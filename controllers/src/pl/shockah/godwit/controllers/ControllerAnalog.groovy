@@ -16,6 +16,12 @@ class ControllerAnalog extends ControllerComponent {
 		this.x = x
 		this.y = y
 		assert x.controller == y.controller
+		lastState = new ControllerAnalogState(
+				analog: this,
+				value: new Vec2(),
+				minAbsValue: new Vec2(),
+				maxAbsValue: new Vec2()
+		)
 	}
 
 	@Override
