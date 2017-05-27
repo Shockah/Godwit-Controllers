@@ -17,6 +17,14 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
         Controllers.addListener(this)
     }
 
+    void register(DirectInputControllerImplementationProvider implementationProvider) {
+        implementationProviders << implementationProvider
+    }
+
+    void unregister(DirectInputControllerImplementationProvider implementationProvider) {
+        implementationProviders.remove(implementationProvider)
+    }
+
     @Override
     List<Controller> getControllers() {
         return nativeToAbstractMap.values() as List<Controller>
