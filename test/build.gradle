@@ -3,6 +3,8 @@ apply plugin: "groovy"
 dependencies {
 	compile project(":controllers")
 	compile "org.codehaus.groovy:groovy:2.4.10"
+	compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+	compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
 }
 
 sourceCompatibility = 1.7
