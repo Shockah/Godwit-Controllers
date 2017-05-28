@@ -7,4 +7,9 @@ import groovy.transform.CompileStatic
 final class ControllerPovState {
 	final ControllerPov pov
 	final PovDirection direction
+
+	ControllerPovState(ControllerPov pov, PovDirection direction) {
+		this.pov = pov
+		this.direction = direction
+	}
 }

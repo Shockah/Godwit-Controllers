@@ -10,10 +10,10 @@ abstract class ControllerAxis extends ControllerComponent {
 	ControllerAxis(Controller controller, String name) {
 		super(controller, name)
 		lastState = new ControllerAxisState(
-				axis: this,
-				value: 0f,
-				minAbsValue: 0f,
-				maxAbsValue: 0f
+				this,
+				0f,
+				0f,
+				0f
 		)
 	}
 
@@ -42,10 +42,10 @@ abstract class ControllerAxis extends ControllerComponent {
 				ControllerAxisState axisState = ControllerAxis.this.state
 				boolean isDown = threshold > 0 ? (axisState.value >= threshold) : (axisState.value <= threshold)
 				return new ControllerButtonState(
-						button: this,
-						isDown: isDown,
-						didPress: !lastState.isDown && isDown,
-						didRelease: lastState.isDown && !isDown
+						this,
+						isDown,
+						!getLastState().isDown && isDown,
+						getLastState().isDown && !isDown
 				)
 			}
 		}

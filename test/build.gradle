@@ -2,6 +2,8 @@ apply plugin: "groovy"
 
 dependencies {
 	compile project(":controllers")
+	compile project(":xinput")
+	//compile project(":directinput-x360")
 	compile "org.codehaus.groovy:groovy:2.4.10"
 	compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
@@ -18,19 +20,11 @@ sourceSets.main {
 
 project.ext.mainClassName = "pl.shockah.godwit.controllers.test.TestStarter"
 
-def testNames = [
-		"AttachedViewport", "Shapes"
-]
+task testControllers(type: JavaExec) {
+	dependsOn 'classes'
 
-testNames.each {
-	testName -> tasks.create("test${testName}", JavaExec) {
-		dependsOn 'classes'
-
-		main = project.mainClassName
-		args testName
-		classpath = sourceSets.main.runtimeClasspath
-		standardInput = System.in
-		ignoreExitValue = true
-		//workingDir = project.assetsDir
-	}
+	main = project.mainClassName
+	classpath = sourceSets.main.runtimeClasspath
+	standardInput = System.in
+	ignoreExitValue = true
 }

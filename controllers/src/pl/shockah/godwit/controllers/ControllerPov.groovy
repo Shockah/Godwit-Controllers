@@ -11,8 +11,8 @@ abstract class ControllerPov extends ControllerComponent {
 	ControllerPov(Controller controller, String name) {
 		super(controller, name)
 		lastState = new ControllerPovState(
-				pov: this,
-				direction: PovDirection.center
+				this,
+				PovDirection.center
 		)
 	}
 
@@ -42,10 +42,10 @@ abstract class ControllerPov extends ControllerComponent {
 				ControllerPovState povState = ControllerPov.this.state
 				boolean isDown = povState.direction in Extensions.getWithNeighbors(direction)
 				return new ControllerButtonState(
-						button: this,
-						isDown: isDown,
-						didPress: !lastState.isDown && isDown,
-						didRelease: lastState.isDown && !isDown
+						this,
+						isDown,
+						!getLastState().isDown && isDown,
+						getLastState().isDown && !isDown
 				)
 			}
 		}
@@ -61,8 +61,8 @@ abstract class ControllerPov extends ControllerComponent {
 			@Override
 			ControllerPovState getState() {
 				return new ControllerPovState(
-						pov: this,
-						direction: StaticExtensions.getDirectionFromStates(null, left.state.isDown, right.state.isDown, up.state.isDown, down.state.isDown)
+						this,
+						StaticExtensions.getDirectionFromStates(null, left.state.isDown, right.state.isDown, up.state.isDown, down.state.isDown)
 				)
 			}
 		}

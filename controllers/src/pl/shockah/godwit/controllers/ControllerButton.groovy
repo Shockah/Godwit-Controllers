@@ -10,10 +10,10 @@ abstract class ControllerButton extends ControllerComponent {
 	ControllerButton(Controller controller, String name) {
 		super(controller, name)
 		lastState = new ControllerButtonState(
-				button: this,
-				isDown: false,
-				didPress: false,
-				didRelease: false
+				this,
+				false,
+				false,
+				false
 		)
 	}
 
@@ -41,10 +41,10 @@ abstract class ControllerButton extends ControllerComponent {
 			ControllerAxisState getState() {
 				ControllerButtonState buttonState = ControllerButton.this.state
 				return new ControllerAxisState(
-						axis: this,
-						value: buttonState.isDown ? pressedValue : releasedValue,
-						minAbsValue: buttonState.didPress ? pressedValue : (buttonState.isDown ? pressedValue : releasedValue),
-						maxAbsValue: buttonState.didRelease ? releasedValue : (buttonState.isDown ? pressedValue : releasedValue)
+						this,
+						buttonState.isDown ? pressedValue : releasedValue,
+						buttonState.didPress ? pressedValue : (buttonState.isDown ? pressedValue : releasedValue),
+						buttonState.didRelease ? releasedValue : (buttonState.isDown ? pressedValue : releasedValue)
 				)
 			}
 		}

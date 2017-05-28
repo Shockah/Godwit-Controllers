@@ -17,10 +17,10 @@ class ControllerAnalog extends ControllerComponent {
 		this.y = y
 		assert x.controller == y.controller
 		lastState = new ControllerAnalogState(
-				analog: this,
-				value: new Vec2(),
-				minAbsValue: new Vec2(),
-				maxAbsValue: new Vec2()
+				this,
+				new Vec2(),
+				new Vec2(),
+				new Vec2()
 		)
 	}
 
@@ -42,10 +42,10 @@ class ControllerAnalog extends ControllerComponent {
 
 	ControllerAnalogState getState() {
 		return new ControllerAnalogState(
-				analog: this,
-				value: new Vec2(x.state.value, y.state.value),
-				minAbsValue: new Vec2(x.state.minAbsValue, y.state.minAbsValue),
-				maxAbsValue: new Vec2(x.state.maxAbsValue, y.state.maxAbsValue)
+				this,
+				new Vec2(x.state.value, y.state.value),
+				new Vec2(x.state.minAbsValue, y.state.minAbsValue),
+				new Vec2(x.state.maxAbsValue, y.state.maxAbsValue)
 		)
 	}
 }

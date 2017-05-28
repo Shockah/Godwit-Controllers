@@ -20,10 +20,10 @@ class XInputControllerAxis extends ControllerAxis {
 	ControllerAxisState getState() {
 		float value = controller.device.components.axes.get(axis)
 		return new ControllerAxisState(
-				axis: this,
-				value: value,
-				minAbsValue: value,
-				maxAbsValue: value
+				this,
+				value,
+				value,
+				value
 		)
 	}
 }

@@ -22,8 +22,8 @@ class XInputControllerPov extends ControllerPov {
 		boolean d = controller.device.components.buttons.down
 
 		return new ControllerPovState(
-				pov: this,
-				direction: PovDirection.getDirectionFromStates(l, r, u, d)
+				this,
+				PovDirection.getDirectionFromStates(l, r, u, d)
 		)
 	}
 }

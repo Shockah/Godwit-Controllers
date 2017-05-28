@@ -8,4 +8,11 @@ final class ControllerAxisState {
 	final float value
 	final float minAbsValue
 	final float maxAbsValue
+
+	ControllerAxisState(ControllerAxis axis, float value, float minAbsValue, float maxAbsValue) {
+		this.axis = axis
+		this.value = value
+		this.minAbsValue = minAbsValue
+		this.maxAbsValue = maxAbsValue
+	}
 }

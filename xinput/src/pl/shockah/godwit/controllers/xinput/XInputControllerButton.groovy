@@ -21,10 +21,10 @@ class XInputControllerButton extends ControllerButton {
 	@Override
 	ControllerButtonState getState() {
 		return new ControllerButtonState(
-				button: this,
-				isDown: Extensions.isDown(controller.device.components.buttons, button),
-				didPress: press,
-				didRelease: release
+				this,
+				Extensions.isDown(controller.device.components.buttons, button),
+				press,
+				release
 		)
 	}
 }
