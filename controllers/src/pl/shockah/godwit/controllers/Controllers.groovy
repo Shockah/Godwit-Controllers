@@ -33,7 +33,7 @@ final class Controllers {
 	}
 
 	static List<Controller> getControllers() {
-		return providers.collect { it.controllers }.flatten() as List<Controller>
+		return providers.findAll { it.enabled }.collect { it.controllers }.flatten() as List<Controller>
 	}
 
 	static List<Controller> getConnectedControllers() {
