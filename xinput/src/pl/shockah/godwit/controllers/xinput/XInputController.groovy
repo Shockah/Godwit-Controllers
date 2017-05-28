@@ -42,7 +42,8 @@ class XInputController extends Controller implements XInputDeviceListener {
 				XInputAxis.RIGHT_THUMBSTICK_X, XInputAxis.RIGHT_THUMBSTICK_Y,
 				XInputAxis.LEFT_TRIGGER, XInputAxis.RIGHT_TRIGGER
 		]) {
-			XInputControllerAxis controllerAxis = new XInputControllerAxis(this, axis)
+			boolean reversed = axis in [XInputAxis.LEFT_THUMBSTICK_Y, XInputAxis.RIGHT_THUMBSTICK_Y]
+			XInputControllerAxis controllerAxis = new XInputControllerAxis(this, axis, reversed)
 			axisMap[axis] = controllerAxis
 		}
 

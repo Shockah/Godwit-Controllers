@@ -20,10 +20,10 @@ class DirectInputControllerButton extends ControllerButton {
 	@Override
 	ControllerButtonState getState() {
 		return new ControllerButtonState(
-				button: this,
-				isDown: controller.controller.getButton(buttonCode),
-				didPress: press,
-				didRelease: release
+				this,
+				controller.controller.getButton(buttonCode),
+				press,
+				release
 		)
 	}
 

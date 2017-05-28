@@ -18,8 +18,8 @@ class DirectInputControllerPov extends ControllerPov {
 	@Override
 	ControllerPovState getState() {
 		return new ControllerPovState(
-				pov: this,
-				direction: controller.controller.getPov(povCode)
+				this,
+				controller.controller.getPov(povCode)
 		)
 	}
 }

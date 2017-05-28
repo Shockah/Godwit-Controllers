@@ -11,6 +11,8 @@ import pl.shockah.godwit.State
 import pl.shockah.godwit.controllers.Controller
 import pl.shockah.godwit.controllers.ControllerAnalog
 import pl.shockah.godwit.controllers.Controllers
+import pl.shockah.godwit.controllers.directinput.DirectInputControllerProvider
+import pl.shockah.godwit.controllers.directinput.X360DirectInputControllerImplementationProvider
 import pl.shockah.godwit.controllers.xinput.XInputControllerProvider
 import pl.shockah.godwit.geom.Rectangle
 import pl.shockah.godwit.geom.Shape
@@ -27,6 +29,10 @@ final class TestStarter extends State {
 	@Override
 	protected void onCreate() {
 		super.onCreate()
+
+		DirectInputControllerProvider directInputProvider = new DirectInputControllerProvider()
+		directInputProvider.register(new X360DirectInputControllerImplementationProvider())
+		Controllers.register(directInputProvider)
 
 		Controllers.register(new XInputControllerProvider())
 

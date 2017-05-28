@@ -21,10 +21,10 @@ class DirectInputControllerAxis extends ControllerAxis {
 	ControllerAxisState getState() {
 		float value = controller.controller.getAxis(axisCode)
 		return new ControllerAxisState(
-				axis: this,
-				value: value,
-				minAbsValue: minAbsValue ? minAbsValue : value,
-				maxAbsValue: maxAbsValue ? maxAbsValue : value
+				this,
+				value,
+				minAbsValue ? minAbsValue : value,
+				maxAbsValue ? maxAbsValue : value
 		)
 	}
 
