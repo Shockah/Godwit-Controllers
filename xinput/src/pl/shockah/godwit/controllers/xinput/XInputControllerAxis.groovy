@@ -27,9 +27,9 @@ class XInputControllerAxis extends ControllerAxis {
 		float value = controller.device.components.axes.get(axis)
 		return new ControllerAxisState(
 				this,
-				value * reverseModifier,
-				value * reverseModifier,
-				value * reverseModifier
+				getValueAfterDeadzone(value * reverseModifier),
+				getValueAfterDeadzone(value * reverseModifier),
+				getValueAfterDeadzone(value * reverseModifier)
 		)
 	}
 }

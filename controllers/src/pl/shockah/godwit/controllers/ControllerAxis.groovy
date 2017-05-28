@@ -6,9 +6,11 @@ import groovy.transform.CompileStatic
 abstract class ControllerAxis extends ControllerComponent {
 	protected ControllerAxisState cachedState
 	protected ControllerAxisState lastState
+	float deadzone
 
-	ControllerAxis(Controller controller, String name) {
+	ControllerAxis(Controller controller, String name, float deadzone = 0.1f) {
 		super(controller, name)
+		this.deadzone = deadzone
 		lastState = new ControllerAxisState(
 				this,
 				0f,
@@ -27,6 +29,12 @@ abstract class ControllerAxis extends ControllerComponent {
 	protected void postUpdate() {
 		cachedState = state
 		super.postUpdate()
+	}
+
+	protected float getValueAfterDeadzone(float value) {
+		if (Math.abs(value) < Math.abs(deadzone))
+			return 0f
+		return (value - (Math.signum(value) * Math.abs(deadzone))) / (1 - Math.abs(deadzone)) as float
 	}
 
 	abstract ControllerAxisState getState()

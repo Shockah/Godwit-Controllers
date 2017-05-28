@@ -22,9 +22,9 @@ class DirectInputControllerAxis extends ControllerAxis {
 		float value = controller.controller.getAxis(axisCode)
 		return new ControllerAxisState(
 				this,
-				value,
-				minAbsValue ? minAbsValue : value,
-				maxAbsValue ? maxAbsValue : value
+				getValueAfterDeadzone(value),
+				getValueAfterDeadzone(minAbsValue ? minAbsValue : value),
+				getValueAfterDeadzone(maxAbsValue ? maxAbsValue : value)
 		)
 	}
 

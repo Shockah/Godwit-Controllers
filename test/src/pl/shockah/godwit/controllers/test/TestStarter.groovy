@@ -68,8 +68,11 @@ final class TestStarter extends State {
 				analog = null
 			if (!analog && !Controllers.connectedControllers.isEmpty()) {
 				Controller controller = Controllers.connectedControllers.first()
-				if (!controller.analogs.isEmpty())
+				if (!controller.analogs.isEmpty()) {
 					analog = controller.analogs.values().first()
+					analog.x.deadzone = 0.1f
+					analog.y.deadzone = 0.1f
+				}
 			}
 
 			if (analog)
