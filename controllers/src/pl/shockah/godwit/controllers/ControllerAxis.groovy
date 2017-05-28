@@ -19,14 +19,14 @@ abstract class ControllerAxis extends ControllerComponent {
 
 	@Override
 	protected void onUpdate() {
-		super.onUpdate()
 		lastState = cachedState
+		super.onUpdate()
 	}
 
 	@Override
 	protected void postUpdate() {
-		super.postUpdate()
 		cachedState = state
+		super.postUpdate()
 	}
 
 	abstract ControllerAxisState getState()

@@ -8,14 +8,9 @@ abstract class Controller {
 	final Map<String, ControllerAnalog> analogs = new HashMap<>()
 	final Map<String, ControllerAxis> axes = new HashMap<>()
 	final Map<String, ControllerButton> buttons = new HashMap<>()
-	final Map<String, ControllerComponent> fakes = new HashMap<>()
-
-	List<ControllerComponent> getRealComponents() {
-		return (povs.values() as List<ControllerComponent>) + (analogs.values() as List<ControllerComponent>) + (axes.values() as List<ControllerComponent>) + (buttons.values() as List<ControllerComponent>)
-	}
 
 	List<ControllerComponent> getComponents() {
-		return realComponents + fakes.values()
+		return (povs.values() as List<ControllerComponent>) + (analogs.values() as List<ControllerComponent>) + (axes.values() as List<ControllerComponent>) + (buttons.values() as List<ControllerComponent>)
 	}
 
 	void onUpdate() {
@@ -48,13 +43,5 @@ abstract class Controller {
 
 	protected void registerButton(ControllerButton button) {
 		buttons[button.name] = button
-	}
-
-	void registerFake(ControllerComponent component) {
-		fakes[component.name] = component
-	}
-
-	void unregisterFake(ControllerComponent component) {
-		fakes.remove(component.name)
 	}
 }

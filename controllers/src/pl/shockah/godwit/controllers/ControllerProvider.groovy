@@ -5,6 +5,9 @@ import groovy.transform.CompileStatic
 @CompileStatic
 abstract class ControllerProvider {
 	boolean enabled = true
+
+	abstract boolean isAvailable()
+
 	abstract List<Controller> getControllers()
 
 	final List<Controller> getConnectedControllers() {

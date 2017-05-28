@@ -7,7 +7,8 @@ final class Controllers {
 	protected static final Set<ControllerProvider> providers = new LinkedHashSet<>()
 
 	static void register(ControllerProvider provider) {
-		providers << provider
+		if (provider.available)
+			providers << provider
 	}
 
 	static void unregister(ControllerProvider provider) {

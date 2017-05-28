@@ -26,18 +26,18 @@ class ControllerAnalog extends ControllerComponent {
 
 	@Override
 	protected void onUpdate() {
-		super.onUpdate()
 		x.onUpdate()
 		y.onUpdate()
 		lastState = cachedState
+		super.onUpdate()
 	}
 
 	@Override
 	protected void postUpdate() {
-		super.postUpdate()
 		x.postUpdate()
 		y.postUpdate()
 		cachedState = state
+		super.postUpdate()
 	}
 
 	ControllerAnalogState getState() {

@@ -17,6 +17,11 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
 		Controllers.addListener(this)
 	}
 
+	@Override
+	boolean isAvailable() {
+		return true
+	}
+
 	void register(DirectInputControllerImplementationProvider implementationProvider) {
 		implementationProviders << implementationProvider
 	}

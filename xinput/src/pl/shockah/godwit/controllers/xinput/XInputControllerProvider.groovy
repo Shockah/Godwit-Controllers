@@ -24,6 +24,11 @@ class XInputControllerProvider extends ControllerProvider {
 	}
 
 	@Override
+	boolean isAvailable() {
+		return System.getProperty("os.name").startsWith("Windows") && (XInputDevice14.available || XInputDevice.available)
+	}
+
+	@Override
 	List<Controller> getControllers() {
 		return nativeToAbstractMap.values() as List<Controller>
 	}
