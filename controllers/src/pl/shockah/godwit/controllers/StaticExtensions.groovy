@@ -5,6 +5,14 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 final class StaticExtensions {
+	static Set<PovDirection> getCardinalDirections() {
+		return [PovDirection.north, PovDirection.south, PovDirection.east, PovDirection.west] as Set<PovDirection>
+	}
+
+	static Set<PovDirection> getDiagonalDirections() {
+		return [PovDirection.northEast, PovDirection.northWest, PovDirection.southEast, PovDirection.southWest] as Set<PovDirection>
+	}
+
 	static PovDirection getDirectionFromStates(final PovDirection _, boolean left, boolean right, boolean up, boolean down) {
 		if (left && right) {
 			left = false

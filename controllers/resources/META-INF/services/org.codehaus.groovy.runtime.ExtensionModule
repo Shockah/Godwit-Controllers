@@ -1,3 +1,4 @@
 moduleName=Godwit-Controllers extensions
 moduleVersion=1.0
 staticExtensionClasses=pl.shockah.godwit.controllers.StaticExtensions
+extensionClasses=pl.shockah.godwit.controllers.Extensions

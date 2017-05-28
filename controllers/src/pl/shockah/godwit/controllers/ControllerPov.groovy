@@ -35,30 +35,12 @@ abstract class ControllerPov extends ControllerComponent {
 	}
 
 	ControllerButton asFakeButton(PovDirection direction) {
-		assert direction in [PovDirection.east, PovDirection.west, PovDirection.north, PovDirection.south]
+		assert direction in StaticExtensions.cardinalDirections
 		return new ControllerButton(controller, "${name}->${direction} as Button") {
 			@Override
 			ControllerButtonState getState() {
 				ControllerPovState povState = ControllerPov.this.state
-
-				boolean isDown = povState.direction == direction
-				if (!isDown) {
-					switch (direction) {
-						case PovDirection.west:
-							isDown = povState.direction in [PovDirection.northWest, PovDirection.southWest]
-							break
-						case PovDirection.east:
-							isDown = povState.direction in [PovDirection.northEast, PovDirection.southEast]
-							break
-						case PovDirection.north:
-							isDown = povState.direction in [PovDirection.northWest, PovDirection.northEast]
-							break
-						case PovDirection.south:
-							isDown = povState.direction in [PovDirection.southWest, PovDirection.southEast]
-							break
-					}
-				}
-
+				boolean isDown = povState.direction in Extensions.getWithNeighbors(direction)
 				return new ControllerButtonState(
 						button: this,
 						isDown: isDown,
