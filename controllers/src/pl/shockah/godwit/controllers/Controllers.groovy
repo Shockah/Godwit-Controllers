@@ -7,12 +7,15 @@ final class Controllers {
 	protected static final Set<ControllerProvider> providers = new LinkedHashSet<>()
 
 	static void register(ControllerProvider provider) {
-		if (provider.available)
+		if (provider.available) {
 			providers << provider
+			provider.onRegister()
+		}
 	}
 
 	static void unregister(ControllerProvider provider) {
-		providers.remove(provider)
+		if (providers.remove(provider))
+			provider.onUnregister()
 	}
 
 	static void update(Closure<Void> closure) {

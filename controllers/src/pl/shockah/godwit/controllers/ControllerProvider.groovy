@@ -14,13 +14,19 @@ abstract class ControllerProvider {
 		return controllers.findAll { it.connected }
 	}
 
-	void onUpdate() {
+	protected void onRegister() {
+	}
+
+	protected void onUnregister() {
+	}
+
+	protected void onUpdate() {
 		for (Controller controller : controllers) {
 			controller.onUpdate()
 		}
 	}
 
-	void postUpdate() {
+	protected void postUpdate() {
 		for (Controller controller : controllers) {
 			controller.postUpdate()
 		}

@@ -32,6 +32,16 @@ abstract class DirectInputController extends Controller implements ControllerLis
 	}
 
 	@Override
+	protected void onUpdate() {
+		super.onUpdate()
+	}
+
+	@Override
+	protected void postUpdate() {
+		super.postUpdate()
+	}
+
+	@Override
 	void connected(com.badlogic.gdx.controllers.Controller controller) {
 		connected = true
 	}

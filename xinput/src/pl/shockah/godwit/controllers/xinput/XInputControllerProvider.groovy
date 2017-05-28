@@ -10,7 +10,9 @@ import pl.shockah.godwit.controllers.ControllerProvider
 class XInputControllerProvider extends ControllerProvider {
 	protected final Map<XInputDevice, XInputController> nativeToAbstractMap = new LinkedHashMap<>()
 
-	XInputControllerProvider() {
+	@Override
+	protected void onRegister() {
+		super.onRegister()
 		if (XInputDevice14.available)
 			setupDevices(XInputDevice14.allDevices)
 		else

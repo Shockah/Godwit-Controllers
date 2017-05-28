@@ -13,13 +13,13 @@ abstract class Controller {
 		return (povs.values() as List<ControllerComponent>) + (analogs.values() as List<ControllerComponent>) + (axes.values() as List<ControllerComponent>) + (buttons.values() as List<ControllerComponent>)
 	}
 
-	void onUpdate() {
+	protected void onUpdate() {
 		for (ControllerComponent component : components) {
 			component.onUpdate()
 		}
 	}
 
-	void postUpdate() {
+	protected void postUpdate() {
 		for (ControllerComponent component : components) {
 			component.postUpdate()
 		}

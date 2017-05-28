@@ -55,7 +55,7 @@ class XInputController extends Controller implements XInputDeviceListener {
 	}
 
 	@Override
-	void onUpdate() {
+	protected void onUpdate() {
 		super.onUpdate()
 		device.poll()
 	}

@@ -13,10 +13,6 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
 	protected final Map<com.badlogic.gdx.controllers.Controller, DirectInputController> nativeToAbstractMap = new LinkedHashMap<>()
 	protected final Set<DirectInputControllerImplementationProvider> implementationProviders = new LinkedHashSet<>()
 
-	DirectInputControllerProvider() {
-		Controllers.addListener(this)
-	}
-
 	@Override
 	boolean isAvailable() {
 		return true
@@ -36,14 +32,28 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
 	}
 
 	@Override
-	void onUpdate() {
+	protected void onRegister() {
+		super.onRegister()
+		Controllers.addListener(this)
+	}
+
+	@Override
+	protected void onUnregister() {
+		super.onUnregister()
+		Controllers.removeListener(this)
+	}
+
+	@Override
+	protected void onUpdate() {
+		super.onUpdate()
 		for (DirectInputController abstractController : nativeToAbstractMap.values()) {
 			abstractController.onUpdate()
 		}
 	}
 
 	@Override
-	void postUpdate() {
+	protected void postUpdate() {
+		super.postUpdate()
 		for (DirectInputController abstractController : nativeToAbstractMap.values()) {
 			abstractController.postUpdate()
 		}
