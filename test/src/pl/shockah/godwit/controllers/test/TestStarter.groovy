@@ -13,7 +13,6 @@ import pl.shockah.godwit.controllers.ControllerAnalog
 import pl.shockah.godwit.controllers.Controllers
 import pl.shockah.godwit.controllers.directinput.DirectInputControllerProvider
 import pl.shockah.godwit.controllers.directinput.X360DirectInputControllerImplementationProvider
-import pl.shockah.godwit.controllers.xinput.XInputControllerProvider
 import pl.shockah.godwit.geom.Rectangle
 import pl.shockah.godwit.geom.Shape
 import pl.shockah.godwit.gl.Gfx
@@ -34,7 +33,7 @@ final class TestStarter extends State {
 		directInputProvider.register(new X360DirectInputControllerImplementationProvider())
 		Controllers.register(directInputProvider)
 
-		Controllers.register(new XInputControllerProvider())
+		//Controllers.register(new XInputControllerProvider())
 
 		new PlayerEntity(Rectangle.centered(Godwit.instance.gfx.size / 2f, 24f)).create(this)
 	}
@@ -70,8 +69,8 @@ final class TestStarter extends State {
 				Controller controller = Controllers.connectedControllers.first()
 				if (!controller.analogs.isEmpty()) {
 					analog = controller.analogs.values().first()
-					analog.x.deadzone = 0.1f
-					analog.y.deadzone = 0.1f
+					analog.x.deadzone = 0.15f
+					analog.y.deadzone = 0.15f
 				}
 			}
 

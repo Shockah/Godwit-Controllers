@@ -35,6 +35,9 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
 	protected void onRegister() {
 		super.onRegister()
 		Controllers.addListener(this)
+		for (com.badlogic.gdx.controllers.Controller controller : Controllers.controllers) {
+			connected(controller)
+		}
 	}
 
 	@Override

@@ -10,16 +10,16 @@ import pl.shockah.godwit.controllers.Controller
 abstract class DirectInputController extends Controller implements ControllerListener {
 	protected final com.badlogic.gdx.controllers.Controller controller
 	protected boolean connected = true
+	private boolean setup = false
 
 	protected Map<Integer, DirectInputControllerButton> buttonMap = new HashMap<>()
 	protected Map<Integer, DirectInputControllerAxis> axisMap = new HashMap<>()
 
 	DirectInputController(com.badlogic.gdx.controllers.Controller controller) {
 		this.controller = controller
-		setupComponents()
 	}
 
-	abstract void setupComponents()
+	protected abstract void setupComponents()
 
 	@Override
 	boolean isConnected() {
@@ -33,6 +33,10 @@ abstract class DirectInputController extends Controller implements ControllerLis
 
 	@Override
 	protected void onUpdate() {
+		if (!setup) {
+			setup = true
+			setupComponents()
+		}
 		super.onUpdate()
 	}
 

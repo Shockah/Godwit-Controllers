@@ -14,7 +14,7 @@ class X360DirectInputController extends DirectInputController {
 	}
 
 	@Override
-	void setupComponents() {
+	protected void setupComponents() {
 		registerPov(new DirectInputControllerPov(this, "POV", 0))
 
 		for (Button button : Button.values()) {
@@ -69,6 +69,7 @@ class X360DirectInputController extends DirectInputController {
 
 		Axis(int code, String name = null, boolean reversed = false) {
 			this.code = code
+			this.name = name
 			this.reversed = reversed
 		}
 
