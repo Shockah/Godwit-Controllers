@@ -35,7 +35,6 @@ abstract class ControllerPov extends ControllerComponent {
 	}
 
 	ControllerButton asFakeButton(PovDirection direction) {
-		assert direction in StaticExtensions.cardinalDirections
 		return new ControllerButton(controller, "${name}->${direction} as Button") {
 			@Override
 			ControllerButtonState getState() {
@@ -49,6 +48,18 @@ abstract class ControllerPov extends ControllerComponent {
 				)
 			}
 		}
+	}
+
+	ControllerAxis asFakeAxis(PovDirection direction, float releasedValue = 0f, float pressedValue = 1f) {
+		return asFakeButton(direction).asFakeAxis(releasedValue, pressedValue)
+	}
+
+	ControllerAnalog asFakeAnalog(float releasedValue = 0f, float pressedValue = 1f) {
+		return new ControllerAnalog(
+				asFakeAxis(PovDirection.east, releasedValue, pressedValue),
+				asFakeAxis(PovDirection.south, releasedValue, pressedValue),
+				"${name} as Analog"
+		)
 	}
 
 	static ControllerPov fakePovFromButtons(ControllerButton left, ControllerButton right, ControllerButton up, ControllerButton down) {

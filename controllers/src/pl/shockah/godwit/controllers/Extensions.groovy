@@ -5,50 +5,39 @@ import groovy.transform.CompileStatic
 
 @CompileStatic
 final class Extensions {
-	static PovDirection getOpposite(PovDirection self) {
-		switch (self) {
-			case PovDirection.north:
-				return PovDirection.south
-			case PovDirection.south:
-				return PovDirection.north
-			case PovDirection.east:
-				return PovDirection.west
-			case PovDirection.west:
-				return PovDirection.east
-			case PovDirection.northEast:
-				return PovDirection.southWest
-			case PovDirection.northWest:
-				return PovDirection.southEast
-			case PovDirection.southEast:
-				return PovDirection.northWest
-			case PovDirection.southWest:
-				return PovDirection.northEast
-			default:
-				return self
+	private static final PovDirection[] CLOCK = [
+	        PovDirection.north, PovDirection.northEast, PovDirection.east, PovDirection.southEast,
+	        PovDirection.south, PovDirection.southWest, PovDirection.west, PovDirection.northWest
+	] as PovDirection[]
+
+	static PovDirection getNextClockwise(PovDirection self) {
+		return getNextWithClockwiseOffset(self, 1)
+	}
+
+	static PovDirection getNextCounterClockwise(PovDirection self) {
+		return getNextWithClockwiseOffset(self, -1)
+	}
+
+	private static PovDirection getNextWithClockwiseOffset(PovDirection self, int offset) {
+		if (self in CLOCK) {
+			int index = CLOCK.findIndexOf { it == self } + offset
+			if (index >= CLOCK.length)
+				index -= CLOCK.length
+			if (index < 0)
+				index += CLOCK.length
+			return CLOCK[index]
 		}
+		throw new IllegalArgumentException()
+	}
+
+	static PovDirection getOpposite(PovDirection self) {
+		if (self == PovDirection.center)
+			return self
+		return getNextWithClockwiseOffset(self, 2)
 	}
 
 	static Set<PovDirection> getNeighbors(PovDirection self) {
-		switch (self) {
-			case PovDirection.north:
-				return [PovDirection.northEast, PovDirection.northWest] as Set<PovDirection>
-			case PovDirection.south:
-				return [PovDirection.southWest, PovDirection.southEast] as Set<PovDirection>
-			case PovDirection.east:
-				return [PovDirection.northEast, PovDirection.southEast] as Set<PovDirection>
-			case PovDirection.west:
-				return [PovDirection.northWest, PovDirection.southWest] as Set<PovDirection>
-			case PovDirection.northEast:
-				return [PovDirection.north, PovDirection.east] as Set<PovDirection>
-			case PovDirection.northWest:
-				return [PovDirection.north, PovDirection.west] as Set<PovDirection>
-			case PovDirection.southEast:
-				return [PovDirection.south, PovDirection.east] as Set<PovDirection>
-			case PovDirection.southWest:
-				return [PovDirection.south, PovDirection.west] as Set<PovDirection>
-			default:
-				throw new IllegalArgumentException()
-		}
+		return [getNextCounterClockwise(self), getNextClockwise(self)] as Set<PovDirection>
 	}
 
 	static Set<PovDirection> getWithNeighbors(PovDirection self) {
