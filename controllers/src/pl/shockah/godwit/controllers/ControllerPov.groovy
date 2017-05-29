@@ -62,13 +62,13 @@ abstract class ControllerPov extends ControllerComponent {
 		)
 	}
 
-	static ControllerPov fakePovFromButtons(ControllerButton left, ControllerButton right, ControllerButton up, ControllerButton down) {
+	static ControllerPov fakePovFromButtons(ControllerButton left, ControllerButton right, ControllerButton up, ControllerButton down, String customName = null) {
 		assert left.controller == right.controller
 		assert left.controller == up.controller
 		assert left.controller == down.controller
 		assert ([left, right, up, down] as Set<ControllerButton>).size() == 4
 
-		return new ControllerPov(left.controller, "${[left, right, up, down].join(", ")} as POV") {
+		return new ControllerPov(left.controller, customName ? customName : "${[left, right, up, down].join(", ")} as POV") {
 			@Override
 			ControllerPovState getState() {
 				return new ControllerPovState(

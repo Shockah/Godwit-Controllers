@@ -48,4 +48,14 @@ class ControllerAnalog extends ControllerComponent {
 				new Vec2(x.state.maxAbsValue, y.state.maxAbsValue)
 		)
 	}
+
+	ControllerPov asFakePov(float threshold) {
+		return ControllerPov.fakePovFromButtons(
+				x.asFakeButton(-threshold),
+				x.asFakeButton(threshold),
+				y.asFakeButton(-threshold),
+				y.asFakeButton(threshold),
+				"${name} as POV"
+		)
+	}
 }
