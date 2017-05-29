@@ -74,8 +74,10 @@ class DirectInputControllerProvider extends ControllerProvider implements Contro
 				}
 			}
 		}
-		abstractController.onUpdate()
-		abstractController.postUpdate()
+		if (abstractController) {
+			abstractController.onUpdate()
+			abstractController.postUpdate()
+		}
 	}
 
 	@Override

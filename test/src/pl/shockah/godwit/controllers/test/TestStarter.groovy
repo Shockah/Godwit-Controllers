@@ -2,19 +2,20 @@ package pl.shockah.godwit.controllers.test
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.badlogic.gdx.controllers.PovDirection
 import com.badlogic.gdx.graphics.Color
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.Entity
 import pl.shockah.godwit.Godwit
 import pl.shockah.godwit.GodwitAdapter
 import pl.shockah.godwit.State
-import pl.shockah.godwit.controllers.Controller
-import pl.shockah.godwit.controllers.ControllerAnalog
-import pl.shockah.godwit.controllers.Controllers
+import pl.shockah.godwit.controllers.*
 import pl.shockah.godwit.controllers.directinput.DirectInputControllerProvider
 import pl.shockah.godwit.controllers.directinput.X360DirectInputControllerImplementationProvider
+import pl.shockah.godwit.geom.Circle
 import pl.shockah.godwit.geom.Rectangle
 import pl.shockah.godwit.geom.Shape
+import pl.shockah.godwit.geom.Vec2
 import pl.shockah.godwit.gl.Gfx
 
 @CompileStatic
@@ -36,6 +37,7 @@ final class TestStarter extends State {
 		//Controllers.register(new XInputControllerProvider())
 
 		new PlayerEntity(Rectangle.centered(Godwit.instance.gfx.size / 2f, 24f)).create(this)
+		new ComponentTesterEntity().create(this)
 	}
 
 	@Override
@@ -49,6 +51,64 @@ final class TestStarter extends State {
 	protected void onRender(Gfx gfx) {
 		gfx.clear(Color.DARK_GRAY)
 		super.onRender(gfx)
+	}
+
+	private static class ComponentTesterEntity extends Entity {
+		Controller controller
+
+		@Override
+		protected void onUpdate() {
+			super.onUpdate()
+
+			if (controller && !controller.connected)
+				controller = null
+			if (!controller && !Controllers.connectedControllers.isEmpty())
+				controller = Controllers.connectedControllers.first()
+		}
+
+		@Override
+		protected void onRender(Gfx gfx) {
+			super.onRender(gfx)
+
+			if (!controller)
+				return
+
+			controller.povs.values().eachWithIndex{ ControllerPov entry, int i ->
+				Vec2 base = new Vec2(16 + i * 64, 16)
+
+				gfx.color = entry.state.direction in PovDirection.north.getWithNeighbors() ? Color.WHITE : Color.BLACK
+				gfx.draw(new Rectangle(base + new Vec2(16, 0), 16, 16), true)
+				gfx.color = entry.state.direction in PovDirection.south.getWithNeighbors() ? Color.WHITE : Color.BLACK
+				gfx.draw(new Rectangle(base + new Vec2(16, 32), 16, 16), true)
+				gfx.color = entry.state.direction in PovDirection.west.getWithNeighbors() ? Color.WHITE : Color.BLACK
+				gfx.draw(new Rectangle(base + new Vec2(0, 16), 16, 16), true)
+				gfx.color = entry.state.direction in PovDirection.east.getWithNeighbors() ? Color.WHITE : Color.BLACK
+				gfx.draw(new Rectangle(base + new Vec2(32, 16), 16, 16), true)
+			}
+
+			controller.analogs.values().eachWithIndex{ ControllerAnalog entry, int i ->
+				Vec2 base = new Vec2(16 + i * 64, 16 + 64)
+
+				gfx.color = Color.BLACK
+				gfx.draw(new Rectangle(base, 48, 48), false)
+				gfx.draw(new Circle(base + new Vec2(24, 24) + entry.state.value * 24, 6), true)
+			}
+
+			controller.axes.values().eachWithIndex{ ControllerAxis entry, int i ->
+				Vec2 base = new Vec2(16 + i * 32, 16 + 128)
+
+				gfx.color = Color.BLACK
+				gfx.draw(new Rectangle(base, 16, 48), false)
+				gfx.draw(new Circle(base + new Vec2(8, 24 + entry.state.value * 24), 6), true)
+			}
+
+			controller.buttons.values().eachWithIndex{ ControllerButton entry, int i ->
+				Vec2 base = new Vec2(16 + (i % 4) * 32, 16 + 192 + (i / 4 as int) * 32)
+
+				gfx.color = entry.state.isDown ? Color.WHITE : Color.BLACK
+				gfx.draw(new Circle(base + new Vec2(12, 12), 12), true)
+			}
+		}
 	}
 
 	private static class PlayerEntity extends Entity {
