@@ -25,18 +25,18 @@ final class StaticExtensions {
 
 		if (left && up)
 			return PovDirection.northWest
-		else if (up)
-			return PovDirection.north
 		else if (up && right)
 			return PovDirection.northEast
-		else if (right)
-			return PovDirection.east
 		else if (right && down)
 			return PovDirection.southEast
-		else if (down)
-			return PovDirection.south
 		else if (down && left)
 			return PovDirection.southWest
+		else if (up)
+			return PovDirection.north
+		else if (right)
+			return PovDirection.east
+		else if (down)
+			return PovDirection.south
 		else if (left)
 			return PovDirection.west
 		else

@@ -13,6 +13,7 @@ import pl.shockah.godwit.controllers.*
 import pl.shockah.godwit.controllers.directinput.DirectInputControllerProvider
 import pl.shockah.godwit.controllers.directinput.GenericDirectInputControllerImplementationProvider
 import pl.shockah.godwit.controllers.directinput.X360DirectInputControllerImplementationProvider
+import pl.shockah.godwit.controllers.xinput.XInputControllerProvider
 import pl.shockah.godwit.geom.Circle
 import pl.shockah.godwit.geom.Rectangle
 import pl.shockah.godwit.geom.Shape
@@ -31,12 +32,12 @@ final class TestStarter extends State {
 	protected void onCreate() {
 		super.onCreate()
 
+		Controllers.register(new XInputControllerProvider())
+
 		DirectInputControllerProvider directInputProvider = new DirectInputControllerProvider()
 		directInputProvider.register(new X360DirectInputControllerImplementationProvider())
 		directInputProvider.register(new GenericDirectInputControllerImplementationProvider())
 		Controllers.register(directInputProvider)
-
-		//Controllers.register(new XInputControllerProvider())
 
 		new PlayerEntity(Rectangle.centered(Godwit.instance.gfx.size / 2f, 24f)).create(this)
 		new ComponentTesterEntity().create(this)
@@ -55,6 +56,7 @@ final class TestStarter extends State {
 		super.onRender(gfx)
 	}
 
+	@CompileStatic
 	private static class ComponentTesterEntity extends Entity {
 		Controller controller
 
@@ -113,6 +115,7 @@ final class TestStarter extends State {
 		}
 	}
 
+	@CompileStatic
 	private static class PlayerEntity extends Entity {
 		Shape shape
 		ControllerAnalog analog
