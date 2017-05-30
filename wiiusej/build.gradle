@@ -1,0 +1,16 @@
+apply plugin: "groovy"
+
+dependencies {
+	compile project(":controllers")
+	compileOnly "org.codehaus.groovy:groovy:2.4.10"
+	compile "com.github.awvalenti.wiiusej:wiiusej-lib:v0.13"
+}
+
+sourceCompatibility = 1.7
+[compileJava, compileTestJava, compileGroovy, compileTestGroovy]*.options*.encoding = "UTF-8"
+
+sourceSets.main {
+	java.srcDirs = []
+	groovy.srcDirs = ["src"]
+	resources.srcDirs = ["resources"]
+}
