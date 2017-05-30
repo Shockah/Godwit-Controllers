@@ -1,7 +1,7 @@
 package pl.shockah.godwit.controllers.test
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import com.badlogic.gdx.controllers.PovDirection
 import com.badlogic.gdx.graphics.Color
 import groovy.transform.CompileStatic
@@ -21,9 +21,9 @@ import pl.shockah.godwit.gl.Gfx
 @CompileStatic
 final class TestStarter extends State {
 	static void main(String[] args) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration()
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration()
 		State state = new TestStarter()
-		new LwjglApplication(new GodwitAdapter(state), config)
+		new Lwjgl3Application(new GodwitAdapter(state), config)
 	}
 
 	@Override

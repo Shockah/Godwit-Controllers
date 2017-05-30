@@ -5,10 +5,9 @@ dependencies {
 	compile project(":directinput-x360")
 	compile project(":xinput")
 	compile "org.codehaus.groovy:groovy:2.4.10"
-	compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+	compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
 	compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-	compile "com.badlogicgames.gdx:gdx-controllers-desktop:$gdxVersion"
-	compile "com.badlogicgames.gdx:gdx-controllers-platform:$gdxVersion:natives-desktop"
+	compile "com.badlogicgames.gdx:gdx-controllers-lwjgl3:$gdxVersion"
 }
 
 sourceCompatibility = 1.7
@@ -29,4 +28,5 @@ task testControllers(type: JavaExec) {
 	classpath = sourceSets.main.runtimeClasspath
 	standardInput = System.in
 	ignoreExitValue = true
+	jvmArgs "-XstartOnFirstThread"
 }
