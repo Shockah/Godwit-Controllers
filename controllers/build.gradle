@@ -2,7 +2,7 @@ apply plugin: "groovy"
 
 dependencies {
 	compileOnly "org.codehaus.groovy:groovy:2.4.10"
-	compile "com.github.Shockah:Godwit:feature~lwjgl3-SNAPSHOT"
+	compile "com.github.Shockah.Godwit:godwit:1.4"
 	compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
 }
 
