@@ -14,7 +14,7 @@ class GenericOisDirectInputController extends DirectInputController {
 
 	@Override
 	protected void setupComponents() {
-		Field joystickField = Class.forName("com.badlogic.gdx.controllers.desktop.OisControllers\$OisController").getField("joystick")
+		Field joystickField = Class.forName("com.badlogic.gdx.controllers.desktop.OisControllers\$OisController").getDeclaredField("joystick")
 		joystickField.accessible = true
 		OisJoystick joystick = (OisJoystick)joystickField.get(controller)
 
