@@ -69,10 +69,10 @@ class X360DirectInputOSXController extends DirectInputController {
 	}
 
 	static enum Axis {
-		LeftX(2), LeftY(3),
-		RightX(4), RightY(5),
-		LeftTrigger(0, "Left Trigger"),
-		RightTrigger(1, "Right Trigger")
+		LeftX(0), LeftY(1),
+		RightX(2), RightY(3),
+		LeftTrigger(4, "Left Trigger"),
+		RightTrigger(5, "Right Trigger")
 
 		private final int code
 		private final String name
