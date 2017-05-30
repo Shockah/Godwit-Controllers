@@ -1,1 +1,1 @@
-include 'controllers', 'directinput', 'directinput-x360', 'directinput-generic-ois', 'xinput', 'test'
+include 'controllers', 'directinput', 'directinput-x360', 'directinput-generic', 'xinput', 'test'

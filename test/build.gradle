@@ -3,7 +3,7 @@ apply plugin: "groovy"
 dependencies {
 	compile project(":controllers")
 	compile project(":directinput-x360")
-	compile project(":directinput-generic-ois")
+	compile project(":directinput-generic")
 	compile project(":xinput")
 	compile "org.codehaus.groovy:groovy:2.4.10"
 	compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
