@@ -6,10 +6,13 @@ import groovy.transform.CompileStatic
 abstract class ControllerAxis extends ControllerComponent {
 	protected ControllerAxisState cachedState
 	protected ControllerAxisState lastState
+	MappedRange mappedRange
 	float deadzone
 
-	ControllerAxis(Controller controller, String name, float deadzone = 0.1f) {
+
+	ControllerAxis(Controller controller, String name, MappedRange mappedRange = null, float deadzone = 0.1f) {
 		super(controller, name)
+		this.mappedRange = mappedRange ? mappedRange : new MappedRange()
 		this.deadzone = deadzone
 		lastState = new ControllerAxisState(
 				this,
@@ -31,10 +34,16 @@ abstract class ControllerAxis extends ControllerComponent {
 		super.postUpdate()
 	}
 
-	protected float getValueAfterDeadzone(float value) {
-		if (Math.abs(value) < Math.abs(deadzone))
+	private float getDeadzoneMappedValue(float value) {
+		int sign = Math.signum(value) as int
+		value = Math.abs(value)
+		if (value < deadzone)
 			return 0f
-		return (value - (Math.signum(value) * Math.abs(deadzone))) / (1 - Math.abs(deadzone)) as float
+		return ((value - deadzone) / (1f - deadzone) * sign) as float
+	}
+
+	protected float getMappedValue(float value) {
+		return mappedRange.map(getDeadzoneMappedValue(value))
 	}
 
 	abstract ControllerAxisState getState()
@@ -56,6 +65,26 @@ abstract class ControllerAxis extends ControllerComponent {
 						getLastState().isDown && !isDown
 				)
 			}
+		}
+	}
+
+	@CompileStatic
+	static final class MappedRange {
+		final float min
+		final float max
+
+		MappedRange(float min = -1f, float max = 1f) {
+			this.min = min
+			this.max = max
+		}
+
+		float map(float value) {
+			float f = (value + 1f) * 0.5f
+			return min + (max - min) * f
+		}
+
+		MappedRange getReversed() {
+			return new MappedRange(max, min)
 		}
 	}
 }

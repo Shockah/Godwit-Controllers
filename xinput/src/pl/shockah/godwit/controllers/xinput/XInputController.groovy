@@ -12,6 +12,7 @@ import com.ivan.xinput.listener.XInputDeviceListener
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.Controller
 import pl.shockah.godwit.controllers.ControllerAnalog
+import pl.shockah.godwit.controllers.ControllerAxis
 
 @CompileStatic
 class XInputController extends Controller implements XInputDeviceListener {
@@ -42,8 +43,10 @@ class XInputController extends Controller implements XInputDeviceListener {
 				XInputAxis.RIGHT_THUMBSTICK_X, XInputAxis.RIGHT_THUMBSTICK_Y,
 				XInputAxis.LEFT_TRIGGER, XInputAxis.RIGHT_TRIGGER
 		]) {
-			boolean reversed = axis in [XInputAxis.LEFT_THUMBSTICK_Y, XInputAxis.RIGHT_THUMBSTICK_Y]
-			XInputControllerAxis controllerAxis = new XInputControllerAxis(this, axis, reversed)
+			ControllerAxis.MappedRange mappedRange = new ControllerAxis.MappedRange()
+			if (axis in [XInputAxis.LEFT_THUMBSTICK_Y, XInputAxis.RIGHT_THUMBSTICK_Y])
+				mappedRange = mappedRange.reversed
+			XInputControllerAxis controllerAxis = new XInputControllerAxis(this, axis, mappedRange)
 			axisMap[axis] = controllerAxis
 		}
 

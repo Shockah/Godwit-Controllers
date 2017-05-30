@@ -3,6 +3,7 @@ package pl.shockah.godwit.controllers.directinput
 import com.badlogic.gdx.controllers.Controller
 import groovy.transform.CompileStatic
 import pl.shockah.godwit.controllers.ControllerAnalog
+import pl.shockah.godwit.controllers.ControllerAxis
 import pl.shockah.godwit.controllers.ControllerPov
 
 @CompileStatic
@@ -33,6 +34,8 @@ class X360DirectInputOSXController extends DirectInputController {
 
 		for (Axis axis : Axis.values()) {
 			DirectInputControllerAxis controllerAxis = new DirectInputControllerAxis(this, axis.name, axis.code)
+			if (axis.reversed)
+				controllerAxis.mappedRange = controllerAxis.mappedRange.reversed
 			axisMap[axis] = controllerAxis
 			super.axisMap[axis.code] = controllerAxis
 		}
@@ -40,7 +43,10 @@ class X360DirectInputOSXController extends DirectInputController {
 		registerAnalog(new ControllerAnalog(axisMap[Axis.LeftX], axisMap[Axis.LeftY], "Left Analog"))
 		registerAnalog(new ControllerAnalog(axisMap[Axis.RightX], axisMap[Axis.RightY], "Right Analog"))
 
+		axisMap[Axis.LeftTrigger].mappedRange = new ControllerAxis.MappedRange(0f, 1f)
 		registerAxis(axisMap[Axis.LeftTrigger])
+
+		axisMap[Axis.RightTrigger].mappedRange = new ControllerAxis.MappedRange(0f, 1f)
 		registerAxis(axisMap[Axis.RightTrigger])
 	}
 

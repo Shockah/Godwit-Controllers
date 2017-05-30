@@ -9,17 +9,11 @@ import pl.shockah.godwit.controllers.ControllerAxisState
 class XInputControllerAxis extends ControllerAxis {
 	final XInputController controller
 	final XInputAxis axis
-	final boolean reversed
 
-	XInputControllerAxis(XInputController controller, XInputAxis axis, boolean reversed = false) {
-		super(controller, Extensions.getName(axis))
+	XInputControllerAxis(XInputController controller, XInputAxis axis, ControllerAxis.MappedRange mappedRange = null, float deadzone = 0.1f) {
+		super(controller, Extensions.getName(axis), mappedRange, deadzone)
 		this.controller = controller
 		this.axis = axis
-		this.reversed = reversed
-	}
-
-	private float getReverseModifier() {
-		return reversed ? -1f : 1f
 	}
 
 	@Override
@@ -27,9 +21,9 @@ class XInputControllerAxis extends ControllerAxis {
 		float value = controller.device.components.axes.get(axis)
 		return new ControllerAxisState(
 				this,
-				getValueAfterDeadzone(value * reverseModifier),
-				getValueAfterDeadzone(value * reverseModifier),
-				getValueAfterDeadzone(value * reverseModifier)
+				getMappedValue(value),
+				getMappedValue(value),
+				getMappedValue(value)
 		)
 	}
 }

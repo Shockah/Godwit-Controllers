@@ -11,8 +11,8 @@ class DirectInputControllerAxis extends ControllerAxis {
 	protected Float minAbsValue = null
 	protected Float maxAbsValue = null
 
-	DirectInputControllerAxis(DirectInputController controller, String name, int axisCode) {
-		super(controller, name)
+	DirectInputControllerAxis(DirectInputController controller, String name, int axisCode, ControllerAxis.MappedRange mappedRange = null, float deadzone = 0.1f) {
+		super(controller, name, mappedRange, deadzone)
 		this.controller = controller
 		this.axisCode = axisCode
 	}
@@ -22,9 +22,9 @@ class DirectInputControllerAxis extends ControllerAxis {
 		float value = controller.controller.getAxis(axisCode)
 		return new ControllerAxisState(
 				this,
-				getValueAfterDeadzone(value),
-				getValueAfterDeadzone(minAbsValue ? minAbsValue : value),
-				getValueAfterDeadzone(maxAbsValue ? maxAbsValue : value)
+				getMappedValue(value),
+				getMappedValue(minAbsValue ? minAbsValue : value),
+				getMappedValue(maxAbsValue ? maxAbsValue : value)
 		)
 	}
 
