@@ -1,1 +1,1 @@
-include 'controllers', 'lwjgl3', 'lwjgl3-x360', 'lwjgl3-generic', 'xinput', 'test'
+include 'controllers', 'desktop', 'lwjgl3', 'lwjgl3-x360', 'lwjgl3-generic', 'xinput', 'test'
