@@ -10,9 +10,9 @@ import pl.shockah.godwit.Godwit
 import pl.shockah.godwit.GodwitAdapter
 import pl.shockah.godwit.State
 import pl.shockah.godwit.controllers.*
-import pl.shockah.godwit.controllers.directinput.DirectInputControllerProvider
-import pl.shockah.godwit.controllers.directinput.GenericDirectInputControllerImplementationProvider
-import pl.shockah.godwit.controllers.directinput.X360DirectInputControllerImplementationProvider
+import pl.shockah.godwit.controllers.lwjgl3.Lwjgl3ControllerProvider
+import pl.shockah.godwit.controllers.lwjgl3.GenericLwjgl3ControllerImplementationProvider
+import pl.shockah.godwit.controllers.lwjgl3.X360Lwjgl3ControllerImplementationProvider
 import pl.shockah.godwit.controllers.xinput.XInputControllerProvider
 import pl.shockah.godwit.geom.Circle
 import pl.shockah.godwit.geom.Rectangle
@@ -34,10 +34,10 @@ final class TestStarter extends State {
 
 		Controllers.register(new XInputControllerProvider())
 
-		DirectInputControllerProvider directInputProvider = new DirectInputControllerProvider()
-		directInputProvider.register(new X360DirectInputControllerImplementationProvider())
-		directInputProvider.register(new GenericDirectInputControllerImplementationProvider())
-		Controllers.register(directInputProvider)
+		Lwjgl3ControllerProvider lwjgl3Provider = new Lwjgl3ControllerProvider()
+		lwjgl3Provider.register(new X360Lwjgl3ControllerImplementationProvider())
+		lwjgl3Provider.register(new GenericLwjgl3ControllerImplementationProvider())
+		Controllers.register(lwjgl3Provider)
 
 		new PlayerEntity(Rectangle.centered(Godwit.instance.gfx.size / 2f, 24f)).create(this)
 		new ComponentTesterEntity().create(this)

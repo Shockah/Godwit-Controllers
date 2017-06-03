@@ -2,8 +2,8 @@ apply plugin: "groovy"
 
 dependencies {
 	compile project(":controllers")
-	compile project(":directinput-x360")
-	compile project(":directinput-generic")
+	compile project(":lwjgl3-x360")
+	compile project(":lwjgl3-generic")
 	compile project(":xinput")
 	compile "org.codehaus.groovy:groovy:2.4.10"
 	compile "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
