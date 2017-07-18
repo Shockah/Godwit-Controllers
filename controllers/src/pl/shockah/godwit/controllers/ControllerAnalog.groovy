@@ -49,12 +49,12 @@ class ControllerAnalog extends ControllerComponent {
 		)
 	}
 
-	ControllerPov asFakePov(float threshold) {
+	ControllerPov asFakePov(float pressThreshold, float releaseThreshold) {
 		return ControllerPov.fakePovFromButtons(
-				x.asFakeButton(-threshold),
-				x.asFakeButton(threshold),
-				y.asFakeButton(-threshold),
-				y.asFakeButton(threshold),
+				x.asFakeButton(-pressThreshold, -releaseThreshold),
+				x.asFakeButton(pressThreshold, releaseThreshold),
+				y.asFakeButton(-pressThreshold, -releaseThreshold),
+				y.asFakeButton(pressThreshold, releaseThreshold),
 				"${name} as POV"
 		)
 	}

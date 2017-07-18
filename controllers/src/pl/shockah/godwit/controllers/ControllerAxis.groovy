@@ -52,11 +52,14 @@ abstract class ControllerAxis extends ControllerComponent {
 		return lastState
 	}
 
-	ControllerButton asFakeButton(float threshold) {
+	ControllerButton asFakeButton(float pressThreshold, float releaseThreshold) {
 		return new ControllerButton(controller, "${name} as Button") {
 			@Override
 			ControllerButtonState getState() {
 				ControllerAxisState axisState = ControllerAxis.this.state
+				ControllerButtonState lastState = getLastState()
+
+				float threshold = !lastState || !lastState.isDown ? pressThreshold : releaseThreshold
 				boolean isDown = threshold > 0 ? (axisState.value >= threshold) : (axisState.value <= threshold)
 				return new ControllerButtonState(
 						this,
